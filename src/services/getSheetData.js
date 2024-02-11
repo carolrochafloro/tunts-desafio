@@ -1,7 +1,9 @@
 const {sheetId} = require('../utils/config.js')
 const {google} = require('googleapis');
+const authorize = require('../utils/authorization.js')
+const {scopeModify, scopeRead} = require('../utils/config.js')
 
-/* Receives an authorization and the range as parameters, returns a two-dimensional array. */
+/* Receives an authorization from the authorize function and the desired range as parameters, returns a two-dimensional array. */
 
 async function getSheetData(auth, range) {
   const sheets = google.sheets({version: 'v4', auth});
@@ -10,11 +12,15 @@ async function getSheetData(auth, range) {
     range: range,
   });
   const rows = result.data.values;
-  if (!rows || rows.length === 0) {
-    console.log('No data found.');
-    return;
-  }
   return rows
 }
 
+async function runTest() {
+  const auth = await authorize(scopeRead);
+  const range = "B4"
+  const result = await getSheetData(auth, range)
+  console.log(result);
+}
+
+runTest();
 module.exports = getSheetData
