@@ -15,12 +15,4 @@ async function getSheetData(auth, range) {
   return rows
 }
 
-async function runTest() {
-  const auth = await authorize(scopeRead);
-  const range = "B4"
-  const result = await getSheetData(auth, range)
-  console.log(result);
-}
-
-runTest();
 module.exports = getSheetData

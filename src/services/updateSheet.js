@@ -19,11 +19,6 @@ async function updateSheet(auth, range, input) {
     });
 
     const rows = result.data.values;
-    if (!rows || rows.length === 0) {
-      console.log('No data found.');
-      return;
-    }
-
     return rows;
   } catch (error) {
     console.error('Error updating sheet:', error.message);
