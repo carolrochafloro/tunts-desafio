@@ -3,7 +3,8 @@ const path = require('path');
 const process = require('process');
 const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
-const scopes = require('./config.js');
+const { scopeModify } = require('./config');
+
 
 /* Authorization function. If there's a token.json in the directory it'll load it. If there isn't one yet, it'll create a new file after login via browser. */
 
@@ -41,7 +42,7 @@ async function authorize() {
     return client;
   }
   client = await authenticate({
-    scopes,
+    scopes: scopeModify,
     keyfilePath: credentialsPath,
   });
   if (client.credentials) {
