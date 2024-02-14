@@ -1,3 +1,4 @@
 node_modules
 /src/utils/token.json
 /src/utils/credentials.json
+.env
