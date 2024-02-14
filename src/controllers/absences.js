@@ -26,7 +26,7 @@ async function absences() {
 
     console.log("Total classes: ", totalClasses);
 
-    /* associate each index with a row in the column and push each student to a different array according to the situation. */
+    /* associate each index with a row in the column and push each student to a different array according to the situation. failed students data will be pushed into the batchUpdateStudents and the others will be pushed into passedStudents to be trated in the grades controller. */
 
     const batchUpdateStudents = []
 

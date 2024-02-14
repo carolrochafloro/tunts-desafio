@@ -1,7 +1,7 @@
 const {sheetId} = require('../utils/config.js')
 const {google} = require('googleapis');
 
-/* Updates specific cells or a range. Inserts the data as USER_ENTERED, so that the input is analyzed exactly as if it had been typed in the Sheets interface. It receives authentication, and an array of objets, each one containing the range as a string and an arry of arrays with the input. */
+/* Updates specific cells or a range. Inserts the data as USER_ENTERED, so that the input is analyzed exactly as if it had been typed in the Sheets interface. It receives as parameters the authentication and an array of objets, each one containing the range as a string and an arry of arrays with the input. */
 
 async function updateSheet(auth, data) {
   const sheets = google.sheets({ version: 'v4', auth });
@@ -26,7 +26,7 @@ async function updateSheet(auth, data) {
 
     console.error('Error updating sheet:', error.message);
     throw error;
-    
+
   }
 }
 

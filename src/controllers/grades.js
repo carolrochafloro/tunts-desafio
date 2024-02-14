@@ -28,7 +28,7 @@ async function grades() {
     console.log('Students array of objects: ', studentsArray);
     console.log('Passed students imported: ', passedStudents);
 
-    /* compare studentsArray with passedStudent array before updating */
+    /* Compare studentsArray with passedStudent array before updating. Failed students will be pushed into batchUpdateStudents. */
     const batchUpdateStudents = []
 
     studentsArray.forEach(student => {
@@ -69,7 +69,7 @@ async function grades() {
   } catch (error) {
 
     console.error('Error in grades controller: ', error);
-    
+
   }
 }
 
