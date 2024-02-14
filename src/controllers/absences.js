@@ -7,6 +7,7 @@ const updateSheet = require('../services/updateSheet.js')
 
 /* this array saves the students who were not failed due to absence so that they are the only ones updated in the grades calculation controller.*/
 const passedStudents = [];
+
 async function absences() {
   
   try {
@@ -25,32 +26,38 @@ async function absences() {
 
     console.log("Total classes: ", totalClasses);
 
-    /* associate each index with a row in the column. */
+    /* associate each index with a row in the column and push each student to a different array according to the situation. */
 
-    const studentsArray = absencesArray.map((absence, index) => {
+    const batchUpdateStudents = []
+
+    absencesArray.forEach((absence, index) => {
+
       const studentNumber = index + 4;
       const studentAbsence = parseInt(absence[0], 10);
 
-      return {studentNumber, studentAbsence};
-    });
-
-    console.log('Students array of objects: ', studentsArray);
-
-    studentsArray.forEach(student => {
-      const percentualAbsences = (student.studentAbsence / totalClasses) * 100;
-
+      const percentualAbsences = (studentAbsence / totalClasses) * 100;
+    
       if (percentualAbsences > 25) {
+
         const input = "Reprovado por Falta";
-        const finalGrade = 0
-          console.log('Updating for failed due to absence student number:', `G${student.studentNumber}`);
-          updateSheet(auth, `G${student.studentNumber}`, input);
-          updateSheet(auth, `H${student.studentNumber}`, finalGrade)
+        const finalGrade = 0;
+        const rangeResult = `G${studentNumber}`
+        const rangeGrade = `H${studentNumber}`
+
+        batchUpdateStudents.push(
+          {range: rangeResult, values: [[input]]},
+          {range: rangeGrade, values: [[finalGrade]]})
+
       } else {
-        passedStudents.push(student)
+        passedStudents.push({ studentNumber, studentAbsence });
       }
     });
 
-return console.log('Updated students failed due to absence.')
+    console.log('Failed students array of objects: ', batchUpdateStudents);
+
+    updateSheet(auth, batchUpdateStudents)
+    
+    return console.log('Updated students failed due to absence.')
     
   } catch (error) {
     console.error('Error in absenses controller: ', error);
