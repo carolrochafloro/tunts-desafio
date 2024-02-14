@@ -1,5 +1,3 @@
-// index.js
-
 const absencesController = require('./controllers/absences.js');
 const gradesController = require('./controllers/grades.js');
 

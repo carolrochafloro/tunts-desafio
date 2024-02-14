@@ -34,7 +34,7 @@ async function grades() {
     studentsArray.forEach(student => {
 
       if (passedStudents.some(passedStudent => passedStudent.studentNumber === student.studentNumber)) {
-        
+
         const studentAvg = Math.ceil((student.p1 + student.p2 + student.p3) / 3);
 
         if (studentAvg >= 70) {
@@ -65,8 +65,11 @@ async function grades() {
     updateSheet(auth, batchUpdateStudents)
 
     return console.log('Updated grades sheet.');
+
   } catch (error) {
+
     console.error('Error in grades controller: ', error);
+    
   }
 }
 
